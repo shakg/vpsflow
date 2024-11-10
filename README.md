@@ -7,6 +7,7 @@ npm run dev
 open http://localhost:3000
 ```
 
+```
 vpsflow/
 ├── main.go
 ├── pkg/
@@ -54,3 +55,4 @@ vpsflow/
 │   │       └── other_script.sh
 ├── go.mod
 └── go.sum
+```
