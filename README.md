@@ -28,7 +28,6 @@ vpsflow/
 │   │   └── osinfo.go               // Functions for OS information detection
 │   ├── scripts/
 │   │   ├── script.go               // Script management and execution
-│   │   └── supported.go            // Definitions for supported scripts
 ├── templates/
 │   └── index.templ.html            // Homepage template for Templ
 ├── handlers/
@@ -41,7 +40,7 @@ vpsflow/
 │   ├── windows/
 │   │   ├── chocolatey/             // Chocolatey package manager scripts
 │   │   └── scoop/                  // Scoop package manager scripts
-│   └── macos/
+│   └── darwin/
 │       ├── brew/                   // Homebrew package manager scripts
 │       └── native/                 // macOS native scripts (e.g., Xcode CLI)
 ├── go.mod                          // Go module dependencies
@@ -52,7 +51,7 @@ vpsflow/
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/vpsflow.git
+   git clone https://github.com/shakg/vpsflow.git
    cd vpsflow
    ```
 2. Run the server:
