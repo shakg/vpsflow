@@ -33,8 +33,6 @@ vpsflow/
 │   └── index.templ.html            // Homepage template for Templ
 ├── handlers/
 │   └── homepage.go                 // Handler functions for the web server
-├── assets/
-│   └── styles.css                  // CSS for dashboard styling
 ├── scripts/                        // Setup scripts, organized by OS and package manager
 │   ├── unix/
 │   │   ├── apt/                    // Debian-based package manager scripts

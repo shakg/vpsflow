@@ -1,0 +1,20 @@
+<!-- templates/index.templ.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VPSFlow</title>
+</head>
+<body>
+    <h1>VPSFlow - Package Installer</h1>
+    <p>Select a package to install:</p>
+    <ul>
+        {{range $package, $scripts := .}}
+        <li>
+            <a href="/install?package={{$package}}">{{$package}}</a>
+        </li>
+        {{end}}
+    </ul>
+</body>
+</html>
