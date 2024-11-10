@@ -1,5 +1,7 @@
 
 <img width="1249" alt="Screenshot 2024-11-11 at 01 02 43" src="https://github.com/user-attachments/assets/a64a94d0-1d3a-41f6-9f47-e2950398217b">
+
+---
 # VPSFlow
 
 **VPSFlow** is an open-source web server designed to simplify the process of setting up a fresh Virtual Private Server (VPS). With VPSFlow, you can configure your server effortlessly by installing essential software and packages with a single click. It's a straightforward solution to streamline deployments, whether you're looking to set up web applications, monitoring tools, or databases.
