@@ -1,2 +1,8 @@
-# vpsflow
-Dead simple setup dashboard for your VPS.
+```
+npm install
+npm run dev
+```
+
+```
+open http://localhost:3000
+```
