@@ -1,16 +1,21 @@
-// pkg/scripts/script.go
 package scripts
 
 import (
 	"bufio"
+	"fmt"
 	"io"
 	"log"
 	"os/exec"
 	"sync"
 )
 
-// ExecuteScript runs the specified script file and streams its output
-func ExecuteScript(scriptPath string) error {
+// ExecuteScript runs the specified script file and streams its output to the callback
+func ExecuteScript(scriptPath string, callback func(string)) error {
+	// Ensure the callback is not nil
+	if callback == nil {
+		return fmt.Errorf("callback cannot be nil")
+	}
+
 	// Create a command to execute the script
 	cmd := exec.Command("bash", scriptPath)
 
@@ -34,10 +39,10 @@ func ExecuteScript(scriptPath string) error {
 	wg.Add(2)
 
 	// Stream standard output
-	go streamOutput(stdout, &wg)
+	go streamOutput(stdout, callback, &wg)
 
 	// Stream standard error
-	go streamOutput(stderr, &wg)
+	go streamOutput(stderr, callback, &wg)
 
 	// Wait for both streaming routines to finish
 	wg.Wait()
@@ -50,12 +55,12 @@ func ExecuteScript(scriptPath string) error {
 	return nil
 }
 
-// streamOutput reads output from the provided pipe and logs it
-func streamOutput(pipe io.ReadCloser, wg *sync.WaitGroup) {
+// streamOutput reads output from the provided pipe and sends it to the callback
+func streamOutput(pipe io.ReadCloser, callback func(string), wg *sync.WaitGroup) {
 	defer wg.Done()
 	scanner := bufio.NewScanner(pipe)
 	for scanner.Scan() {
-		log.Println(scanner.Text()) // Log each line of output
+		callback(scanner.Text()) // Send each line of output to the callback
 	}
 	if err := scanner.Err(); err != nil {
 		log.Printf("Error reading script output: %v", err)

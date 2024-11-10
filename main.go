@@ -7,20 +7,15 @@ import (
 
 	"github.com/shakg/vpsflow/handlers"
 	"github.com/shakg/vpsflow/pkg/osinfo"
-	"github.com/shakg/vpsflow/pkg/scripts"
 )
 
 func main() {
 	// Fetch OS and package manager info
 	osInfo := osinfo.GetOSInfo()
-	pkgManager := osinfo.GetPackageManager(osInfo)
 
 	// Log OS and package manager info for debugging
-	log.Printf("Detected OS: %s", osInfo.Name)
-	log.Printf("Detected Package Manager: %s", pkgManager)
-
-	// Pass OS and package manager information to script handler
-	scripts.LoadSupportedScripts(osInfo, pkgManager)
+	log.Printf("Detected OS: %s", osInfo.OS)
+	log.Printf("Detected Package Manager: %s", osInfo.PackageManager)
 
 	// Setup routes
 	http.HandleFunc("/", handlers.HomepageHandler)

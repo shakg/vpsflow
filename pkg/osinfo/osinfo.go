@@ -6,22 +6,25 @@ import (
 )
 
 type OSInfo struct {
-	Name string
+	OS             string
+	PackageManager string
 }
 
 func GetOSInfo() OSInfo {
 	os := runtime.GOOS
-	return OSInfo{Name: os}
+	return OSInfo{
+		OS:             os,
+		PackageManager: GetPackageManager(os),
+	}
 }
 
-func GetPackageManager(osInfo OSInfo) string {
-	switch osInfo.Name {
-	case "darwin":
+func GetPackageManager(osInfo string) string {
+
+	if osInfo == "darwin" {
 		return "brew"
-	case "linux":
-		// Check specific distro if necessary
-		return "apt" // Default to apt; modify if supporting more distros
-	default:
-		return ""
 	}
+	if osInfo == "linux" {
+		return "apt"
+	}
+	return ""
 }
