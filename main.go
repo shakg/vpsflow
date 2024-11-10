@@ -5,9 +5,9 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/yourusername/vpsflow/handlers"
-	"github.com/yourusername/vpsflow/pkg/osinfo"
-	"github.com/yourusername/vpsflow/pkg/scripts"
+	"github.com/shakg/vpsflow/handlers"
+	"github.com/shakg/vpsflow/pkg/osinfo"
+	"github.com/shakg/vpsflow/pkg/scripts"
 )
 
 func main() {

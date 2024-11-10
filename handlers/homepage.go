@@ -7,7 +7,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/yourusername/vpsflow/pkg/scripts"
+	"github.com/shakg/vpsflow/pkg/scripts"
 )
 
 func HomepageHandler(w http.ResponseWriter, r *http.Request) {

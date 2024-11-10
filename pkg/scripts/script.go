@@ -1,0 +1,63 @@
+// pkg/scripts/script.go
+package scripts
+
+import (
+	"bufio"
+	"io"
+	"log"
+	"os/exec"
+	"sync"
+)
+
+// ExecuteScript runs the specified script file and streams its output
+func ExecuteScript(scriptPath string) error {
+	// Create a command to execute the script
+	cmd := exec.Command("bash", scriptPath)
+
+	// Get the standard output and standard error pipes
+	stdout, err := cmd.StdoutPipe()
+	if err != nil {
+		return err
+	}
+	stderr, err := cmd.StderrPipe()
+	if err != nil {
+		return err
+	}
+
+	// Start the command
+	if err := cmd.Start(); err != nil {
+		return err
+	}
+
+	// WaitGroup to handle both stdout and stderr streaming
+	var wg sync.WaitGroup
+	wg.Add(2)
+
+	// Stream standard output
+	go streamOutput(stdout, &wg)
+
+	// Stream standard error
+	go streamOutput(stderr, &wg)
+
+	// Wait for both streaming routines to finish
+	wg.Wait()
+
+	// Wait for the command to finish
+	if err := cmd.Wait(); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// streamOutput reads output from the provided pipe and logs it
+func streamOutput(pipe io.ReadCloser, wg *sync.WaitGroup) {
+	defer wg.Done()
+	scanner := bufio.NewScanner(pipe)
+	for scanner.Scan() {
+		log.Println(scanner.Text()) // Log each line of output
+	}
+	if err := scanner.Err(); err != nil {
+		log.Printf("Error reading script output: %v", err)
+	}
+}

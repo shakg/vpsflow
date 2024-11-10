@@ -4,7 +4,7 @@ package scripts
 import (
 	"log"
 
-	"github.com/yourusername/vpsflow/pkg/osinfo"
+	"github.com/shakg/vpsflow/pkg/osinfo"
 )
 
 var supportedScripts = map[string][]string{}
