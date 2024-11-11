@@ -64,6 +64,50 @@
         <span><strong> OS </strong> - {{.OSInfo.OS}}</span>
         <span><strong> PM </strong> - {{.OSInfo.PackageManager}}</span>
       </div>
+      <ul class="space-y-2 my-6 border-t border-t-gray-200 py-4">
+        <li>
+          <a href="/" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700">
+            Overview
+          </a>
+        </li>
+      
+        <li>
+          <a
+            href="tools"
+            class="block rounded px-4 py-2 bg-gray-800 text-sm font-medium text-gray-200 hover:bg-gray-900"
+          >
+            Tools
+          </a>
+        </li>
+      
+        <li>
+          <a
+            href="recipes"
+            class="block rounded px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+          >
+            Recipes
+          </a>
+        </li>
+      
+        <li>
+          <a
+            href="assistant"
+            class="block rounded px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+          >
+            Assistant
+          </a>
+        </li>
+      
+        <li>
+          <a
+            href="settings"
+            class="block rounded px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+          >
+            Settings
+          </a>
+        </li>
+      </ul>
+
     </aside>
 
     <!-- Main content -->
@@ -90,7 +134,7 @@
             <p class="text-sm mb-2"><strong>Last Update :</strong> {{.LastUpdate}}</p>
           </div>
 
-          <button class="w-full py-2 px-4 bg-gray-700 text-white hover:bg-gray-800 rounded"
+          <button class="w-full py-2 px-4 text-gray-600 border rounded hover:bg-gray-100"
             onclick="startInstall('{{.Name}}')">Install</button>
           <div id="install-output-{{.Name}}" class="mt-4 p-4 bg-gray-100 rounded-lg hidden h-128 overflow-y-scroll overflow-x-hidden">
             <h4 class="font-bold">Installation Output:</h4>

@@ -172,11 +172,11 @@ func InstallHandler(w http.ResponseWriter, r *http.Request) {
 	osPath := filepath.Join("scripts", "darwin", "brew", "nodejs.sh")
 
 	// Execute the script and stream its output in the background
-	go runScriptAndStreamOutput(osPath, w, flusher)
+	go runScriptAndStreamOutput(osPath, &w, &flusher)
 }
 
 // runScriptAndStreamOutput executes the script and streams the output to the client
-func runScriptAndStreamOutput(scriptPath string, w http.ResponseWriter, flusher http.Flusher) {
+func runScriptAndStreamOutput(scriptPath string, w *http.ResponseWriter, flusher *http.Flusher) {
 	// Log the state of the writer and flusher
 	if w == nil {
 		log.Println("Error: ResponseWriter is nil in runScriptAndStreamOutput")
@@ -192,12 +192,11 @@ func runScriptAndStreamOutput(scriptPath string, w http.ResponseWriter, flusher 
 		// Check if writer and flusher are still valid before attempting to write
 		if w != nil && flusher != nil {
 			// Stream the output to the client in real-time
-			_, writeErr := fmt.Fprintf(w, "data: %s\n\n", output)
+			_, writeErr := fmt.Fprintf(*w, "data: %s\n\n", output)
 			if writeErr != nil {
 				log.Printf("Error writing output: %s", writeErr.Error())
 				return
 			}
-			flusher.Flush() // Ensure the data is sent to the client
 		} else {
 			log.Println("Error: ResponseWriter or Flusher is nil during output streaming")
 		}
@@ -206,11 +205,10 @@ func runScriptAndStreamOutput(scriptPath string, w http.ResponseWriter, flusher 
 	// If there's an error in script execution, report it
 	if err != nil {
 		if w != nil && flusher != nil {
-			_, writeErr := fmt.Fprintf(w, "data: ERROR: %s\n\n", err.Error())
+			_, writeErr := fmt.Fprintf(*w, "data: ERROR: %s\n\n", err.Error())
 			if writeErr != nil {
 				log.Printf("Error writing error message: %s", writeErr.Error())
 			}
-			flusher.Flush()
 		} else {
 			log.Println("Error: ResponseWriter or Flusher is nil while reporting the error")
 		}
